@@ -25,7 +25,7 @@ var app = express.createServer();
 console.log("fine1");
 /*   server = require('http').createServer(app);
    server.listen(process.env.PORT || 5000); */
-    sio = require('socket.io');
+   var sio = require('socket.io');
 
 app.listen(port, function () {
   var addr = app.address();
@@ -39,7 +39,7 @@ app.get('/', function(request, response) {
 var io = sio.listen(app)
 io.configure(function () { 
 io.set('transports', ['xhr-polling']);
-io.set('polling duration', 10);
+io.set('polling duration', 20);
 });
 /*io.on('connection', function(socket){
   
@@ -49,7 +49,7 @@ io.set('polling duration', 10);
 });
 */
 
-io.sockets.on('connection', function (socket) {
+io.on('connection', function (socket) {
   socket.on('chat message', function (msg) {
     socket.broadcast.emit('chat message', socket.nickname, msg);
   });
