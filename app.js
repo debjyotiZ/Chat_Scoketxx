@@ -23,26 +23,25 @@ http.listen(3000, function(){
 var express = require('express');
 var app = express();
 
-//var io = require('socket.io');
-var WebSocketServer = require("ws").Server;
-
+var io = require('socket.io');
+console.log("fine1");
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response) {
   request.sendFile('index.html');
 });
-var wss = new WebSocketServer({server: server});
-console.log("websocket server created");
-/*wss.configure(function () {  
+console.log("fine2");
+io.configure(function () {  
   io.set("transports", ["xhr-polling"]); 
   io.set("polling duration", 10); 
-});*/
-wss.on('connection', function(socket){
+});
+io.on('connection', function(socket){
   socket.on('chat message', function(msg){
-    wss.emit('chat message', msg);
+    io.emit('chat message', msg);
   });
 });
+console.log("fine3");
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
