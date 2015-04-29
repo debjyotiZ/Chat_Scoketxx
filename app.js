@@ -22,7 +22,7 @@ http.listen(3000, function(){
 
 var express = require('express');
 var app = express();
-
+console.log("fine1");
 var io = require('socket.io');
 console.log("fine1");
 app.set('port', (process.env.PORT || 5000));
