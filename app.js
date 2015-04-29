@@ -35,10 +35,10 @@ app.get('/', function(request, response) {
 });
 console.log("fine2");
 
-io.sockets.on('connection', function(socket){
+io.on('connection', function(socket){
   socket.emit('identification', { data : "connected" });
   socket.on('chat message', function(msg){
-    io.sockets.emit('chat message', msg);
+    io.emit('chat message', msg);
   });
 });
 console.log("fine3");
