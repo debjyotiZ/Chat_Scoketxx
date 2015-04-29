@@ -23,22 +23,22 @@ http.listen(3000, function(){
 var express = require('express');
 var app = express();
 console.log("fine1");
-var io = require('socket.io');
+   server = require('http').createServer(app),
+    io = require('socket.io').listen(server),var io = require('socket.io');
 console.log("fine1");
-app.set('port', (process.env.PORT || 5000));
+server.listen(process.env.PORT || 5000);
+//app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response) {
   request.sendFile('index.html');
 });
 console.log("fine2");
-io.configure(function () {  
-  io.set("transports", ["xhr-polling"]); 
-  io.set("polling duration", 10); 
-});
-io.on('connection', function(socket){
+
+io.sockets.on('connection', function(socket){
+  socket.emit('identification', { data : "connected" });
   socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+    io.sockets.emit('chat message', msg);
   });
 });
 console.log("fine3");
