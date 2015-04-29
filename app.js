@@ -24,9 +24,10 @@ var express = require('express');
 var app = express();
 console.log("fine1");
    server = require('http').createServer(app);
+   server.listen(process.env.PORT || 5000);
     io = require('socket.io').listen(server);
 console.log("fine1");
-server.listen(process.env.PORT || 5000);
+
 //app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
@@ -36,7 +37,7 @@ app.get('/', function(request, response) {
 console.log("fine2");
 
 io.on('connection', function(socket){
-  socket.emit('identification', { data : "connected" });
+  
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
   });
