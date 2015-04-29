@@ -23,9 +23,10 @@ http.listen(3000, function(){
 var express = require('express');
 var app = express();
 console.log("fine1");
-   server = require('http').createServer(app);
-   server.listen(process.env.PORT || 5000); 
+/*   server = require('http').createServer(app);
+   server.listen(process.env.PORT || 5000); */
     var http = require('http').Server(app);
+    http.listen(process.env.PORT || 5000);
     var io = require('socket.io')(http);
 console.log("fine1");
 
