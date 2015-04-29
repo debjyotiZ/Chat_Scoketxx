@@ -21,10 +21,10 @@ http.listen(3000, function(){
 */
 
 var express = require('express');
-var app = express();
+var app = express.createServer();
 console.log("fine1");
-   server = require('http').createServer(app);
-   server.listen(process.env.PORT || 5000); 
+/*   server = require('http').createServer(app);
+   server.listen(process.env.PORT || 5000); */
     sio = require('socket.io');
 
 app.listen(port, function () {
@@ -51,7 +51,7 @@ io.set('polling duration', 10);
 
 io.sockets.on('connection', function (socket) {
   socket.on('chat message', function (msg) {
-    socket.broadcast.emit('user message', socket.nickname, msg);
+    socket.broadcast.emit('chat message', socket.nickname, msg);
   });
 
   
