@@ -23,7 +23,8 @@ http.listen(3000, function(){
 var express = require('express');
 var app = express();
 
-var io = require('socket.io');
+//var io = require('socket.io');
+var WebSocketServer = require("ws").Server;
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
@@ -31,9 +32,15 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function(request, response) {
   request.sendFile('index.html');
 });
-io.on('connection', function(socket){
+var wss = new WebSocketServer({server: server});
+console.log("websocket server created");
+/*wss.configure(function () {  
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10); 
+});*/
+wss.on('connection', function(socket){
   socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+    wss.emit('chat message', msg);
   });
 });
 app.listen(app.get('port'), function() {
