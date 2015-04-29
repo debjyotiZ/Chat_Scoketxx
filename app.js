@@ -24,8 +24,9 @@ var express = require('express');
 var app = express();
 console.log("fine1");
    server = require('http').createServer(app);
-   server.listen(process.env.PORT || 5000);
-    io = require('socket.io').listen(server);
+   server.listen(process.env.PORT || 5000); 
+    var http = require('http').Server(app);
+    var io = require('socket.io')(http);
 console.log("fine1");
 
 //app.set('port', (process.env.PORT || 5000));
@@ -35,7 +36,10 @@ app.get('/', function(request, response) {
   request.sendFile('index.html');
 });
 console.log("fine2");
-
+global.io.configure(function () {
+  global.io.set("transports", ["xhr-polling"]);
+  global.io.set("polling duration", 10);
+});
 io.on('connection', function(socket){
   
   socket.on('chat message', function(msg){
