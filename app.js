@@ -21,11 +21,10 @@ http.listen(3000, function(){
 */
 
 var express = require('express');
-var app = express();
-console.log("fine1");
-   server = require('http').createServer(app);
-    io = require('socket.io').listen(Server);
-console.log("fine1");
+var app = express();\
+  var server = require('http').createServer(app);
+   var io = require('socket.io').listen(server);
+
 server.listen(process.env.PORT || 5000);
 //app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
@@ -33,7 +32,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function(request, response) {
   request.sendFile('index.html');
 });
-console.log("fine2");
+
 io.configure(function () { 
 io.set('transports', ['xhr-polling']);
 io.set('polling duration', 10);
