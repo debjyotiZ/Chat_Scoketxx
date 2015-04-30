@@ -37,10 +37,10 @@ io.configure(function () {
 io.set('transports', ['xhr-polling']);
 io.set('polling duration', 30);
 });
-io.on('connection', function(socket){
+io.sockets.on('connection', function(socket){
   
   socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+    io.sockets.emit('chat message', msg);
   });
 });
 console.log("fine3");
