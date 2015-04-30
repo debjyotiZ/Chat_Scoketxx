@@ -24,7 +24,7 @@ var express = require('express');
 var app = express();
 console.log("fine1");
    server = require('http').createServer(app);
-    io = require('socket.io').listen(server);
+    io = require('socket.io').listen(Server);
 console.log("fine1");
 server.listen(process.env.PORT || 5000);
 //app.set('port', (process.env.PORT || 5000));
@@ -38,10 +38,10 @@ io.configure(function () {
 io.set('transports', ['xhr-polling']);
 io.set('polling duration', 10);
 });
-io.on('connection', function(socket){
+io.sockets.on('connection', function(socket){
   
   socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+    io.sockets.emit('chat message', msg);
   });
 });
 console.log("fine3");
